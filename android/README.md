@@ -22,12 +22,23 @@ The launcher icon is the peacock emblem on a near-black background: an adaptive 
 `app/src/main/res/mipmap-anydpi-v26/` with PNG fallbacks in `mipmap-*dpi/`. The background colour is
 in `res/values/ic_launcher_background.xml`.
 
-## Before public distribution
+## Publish to Google Play
 
-- Test on real phones: forms, images, WhatsApp links and navigation.
-- Create a private release keystore, back it up, and never commit it or its passwords.
-- Add release signing to `app/build.gradle.kts` using GitHub Actions secrets, then build a signed
-  release APK. Keep the same application ID and signing key for every update.
+Google Play needs a signed release bundle (`.aab`), not the debug APK.
+
+1. On a computer, create an upload key once (keep the file and passwords somewhere safe, and never
+   commit them):
+   `keytool -genkeypair -v -keystore lilula-upload.jks -alias lilula -keyalg RSA -keysize 2048 -validity 10000`
+2. Turn the key file into text: `base64 -w0 lilula-upload.jks` (Mac: `base64 -i lilula-upload.jks`).
+3. In GitHub, open Settings, then Secrets and variables, then Actions, and add four repository secrets:
+   `KEYSTORE_BASE64` (the text from step 2), `KEYSTORE_PASSWORD`, `KEY_ALIAS` (`lilula` above) and
+   `KEY_PASSWORD`.
+4. Run **Build Lilula Beverages Google Play bundle** from the Actions tab and download
+   `lilula-beverages-play-release-aab`.
+5. Upload `app-release.aab` in Play Console. Each run raises the version code automatically.
+
+Choose Play App Signing when Play Console asks. Google then holds the final app signing key and your
+file is only the upload key.
 
 ## Notes
 
