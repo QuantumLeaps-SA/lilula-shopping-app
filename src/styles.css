@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", system-ui, sans-serif;
+  --font-display: "Cinzel", Georgia, serif;
+  --color-bg: #050505;
+  --color-surface: #0b0b0b;
+  --color-raised: #14110c;
+  --color-fg: #f1ede4;
+  --color-muted: #bdb6a4;
+  --color-gold: #c9a24b;
+  --color-gold-2: #e3c06f;
+  --color-ink: #14110c;
+  --color-line: #2b2410;
+  --color-green: #1f6b3a;
+  --color-leaf: #3fae5a;
+  --radius-card: 0.25rem;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  a.btn {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-inline: 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+  }
+
+  .btn:focus-visible,
+  .field:focus-visible,
+  .icon-btn:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  .btn-gold:hover {
+    background: var(--color-gold-2);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-gold);
+    background: transparent;
+    color: var(--color-fg);
+  }
+
+  .btn-ghost:hover {
+    background: color-mix(in srgb, var(--color-gold) 16%, transparent);
+  }
+
+  .btn-green {
+    background: var(--color-green);
+    color: var(--color-fg);
+  }
+
+  .btn-green:hover {
+    background: var(--color-leaf);
+    color: var(--color-ink);
+  }
+
+  .field {
+    width: 100%;
+    min-height: 2.75rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    font-size: 0.875rem;
+  }
+
+  .panel {
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+
+  .kicker {
+    color: var(--color-gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .rule {
+    display: block;
+    width: 4.5rem;
+    height: 1px;
+    margin-inline: auto;
+    background: var(--color-gold);
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn {
+    transition: none;
+  }
+}
