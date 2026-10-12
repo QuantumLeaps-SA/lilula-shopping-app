@@ -1,0 +1,31 @@
+node_modules/
+dist/
+.output/
+.nitro/
+.vercel/
+.tanstack/
+*.log
+.DS_Store
+
+# Never commit secrets. This app needs none to run.
+.env
+.env.*
+
+# Grok Build workspace leftovers. Only the build flag file below is tracked.
+.grok/*
+!.grok/app-env.json
+.project_id
+.node_modules.lock
+attachments/
+screenshots/
+artifacts/
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+*.apk
+*.aab
+*.jks
+*.keystore
