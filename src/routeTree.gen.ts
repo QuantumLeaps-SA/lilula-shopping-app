@@ -16,6 +16,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as StoryRouteImport } from './routes/story'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as EnquiryEnquiryIdRouteImport } from './routes/enquiry.$enquiryId'
 import { Route as OrdersIndexRouteImport } from './routes/orders.index'
 import { Route as OrdersOrderIdRouteImport } from './routes/orders.$orderId'
@@ -57,6 +58,11 @@ const StoryRoute = StoryRouteImport.update({
   path: '/story',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnquiryEnquiryIdRoute = EnquiryEnquiryIdRouteImport.update({
   id: '/enquiry/$enquiryId',
   path: '/enquiry/$enquiryId',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof OrdersRouteWithChildren
   '/shop': typeof ShopRouteWithChildren
   '/story': typeof StoryRoute
+  '/privacy': typeof PrivacyRoute
   '/enquiry/$enquiryId': typeof EnquiryEnquiryIdRoute
   '/orders/$orderId': typeof OrdersOrderIdRoute
   '/shop/$productId': typeof ShopProductIdRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/orders': typeof OrdersIndexRoute
   '/shop': typeof ShopIndexRoute
   '/story': typeof StoryRoute
+  '/privacy': typeof PrivacyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/orders': typeof OrdersRouteWithChildren
   '/shop': typeof ShopRouteWithChildren
   '/story': typeof StoryRoute
+  '/privacy': typeof PrivacyRoute
   '/enquiry/$enquiryId': typeof EnquiryEnquiryIdRoute
   '/orders/$orderId': typeof OrdersOrderIdRoute
   '/shop/$productId': typeof ShopProductIdRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/shop'
     | '/story'
+    | '/privacy'
     | '/enquiry/$enquiryId'
     | '/orders/$orderId'
     | '/shop/$productId'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/shop'
     | '/story'
+    | '/privacy'
   id:
     | '__root__'
     | '/'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/shop'
     | '/story'
+    | '/privacy'
     | '/enquiry/$enquiryId'
     | '/orders/$orderId'
     | '/shop/$productId'
@@ -175,6 +187,7 @@ export interface RootRouteChildren {
   OrdersRoute: typeof OrdersRouteWithChildren
   ShopRoute: typeof ShopRouteWithChildren
   StoryRoute: typeof StoryRoute
+  PrivacyRoute: typeof PrivacyRoute
   EnquiryEnquiryIdRoute: typeof EnquiryEnquiryIdRoute
 }
 
@@ -227,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/story'
       fullPath: '/story'
       preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/enquiry/$enquiryId': {
@@ -300,6 +320,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersRoute: OrdersRouteWithChildren,
   ShopRoute: ShopRouteWithChildren,
   StoryRoute: StoryRoute,
+  PrivacyRoute: PrivacyRoute,
   EnquiryEnquiryIdRoute: EnquiryEnquiryIdRoute,
 }
 export const routeTree = rootRouteImport
