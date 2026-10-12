@@ -182,6 +182,11 @@ function Footer() {
       </p>
       <p className="mt-3">Alcohol. 18+. Drink responsibly. Prices are estimates until Lilula confirms.</p>
       <p className="mt-2">© {new Date().getFullYear()} Lilula Beverages.</p>
+      <p className="mt-2">
+        <Link className="text-gold" to="/privacy">
+          Privacy policy
+        </Link>
+      </p>
     </footer>
   );
 }
