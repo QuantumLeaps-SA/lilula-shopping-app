@@ -17,7 +17,7 @@ import android.view.KeyEvent;
 
 public class MainActivity extends Activity {
     // The live website the app shows. Change this one line if the site moves to another address.
-    private static final String HOME_URL = "https://lilulabeverages.vercel.app/";
+    private static final String HOME_URL = "https://lilula-beverages-shop.vercel.app/";
     private static final String HOME_HOST = Uri.parse(HOME_URL).getHost();
     private WebView webView;
     private ProgressBar progressBar;
