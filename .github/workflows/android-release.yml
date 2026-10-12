@@ -1,8 +1,5 @@
-name: Build Lilula Beverages Google Play bundle
 
-# Builds the signed release bundle (.aab) that Google Play accepts.
-# One-time setup: add four repository secrets (Settings > Secrets and variables > Actions):
-#   KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
+name: Build Lilula Beverages Signed Release APK
 
 on:
   workflow_dispatch:
@@ -11,17 +8,17 @@ permissions:
   contents: read
 
 jobs:
-  bundle:
+  release:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     defaults:
       run:
         working-directory: android
+
     steps:
-      - name: Check out source
+      - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Check signing secrets exist
+      - name: Check signing secrets
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -30,12 +27,12 @@ jobs:
         run: |
           for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
             if [ -z "${!name}" ]; then
-              echo "Missing GitHub secret: $name"
+              echo "Missing secret: $name"
               exit 1
             fi
           done
 
-      - name: Set up Java 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -46,23 +43,24 @@ jobs:
         with:
           gradle-version: "8.13"
 
-      - name: Decode upload keystore
+      - name: Decode signing key
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/lilula.jks"
 
-      - name: Build signed release bundle
+      - name: Build signed APK
         env:
-          KEYSTORE_PATH: ${{ runner.temp }}/upload.jks
+          KEYSTORE_PATH: ${{ runner.temp }}/lilula.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: gradle --no-daemon bundleRelease -PversionCode=${{ github.run_number }}
+        run: gradle --no-daemon assembleRelease -PversionCode=${{ github.run_number }}
 
-      - name: Upload release bundle
+      - name: Upload signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: lilula-beverages-play-release-aab
-          path: android/app/build/outputs/bundle/release/app-release.aab
+          name: lilula-beverages-signed-release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 30
