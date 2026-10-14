@@ -25,6 +25,10 @@ const sections: { heading: string; body: string }[] = [
     body: "Nothing is paid in the website or app. Payment is arranged directly with Lilula after you send your order.",
   },
   {
+    heading: "Age verification & delivery safeguards",
+    body: "Lilula Beverages strictly complies with South African liquor legislation. By placing an order for alcoholic beverages through our platform, you confirm that you are at least 18 years of age. Pursuant to South African liquor laws, physical delivery or collection of alcoholic beverages will require valid proof of age and identity (ID, Passport, or Driver's License) upon handover or collection. Our delivery personnel or store staff reserve the right to refuse delivery or handover if valid proof of age is not provided or if the recipient is under 18 years of age.",
+  },
+  {
     heading: "Age",
     body: "Alcohol. 18+. The website and app are for adults only.",
   },
